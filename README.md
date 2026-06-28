@@ -23,7 +23,8 @@ Baseado em [abnTeX2](https://www.abntex.net.br/). O texto vem preenchido com
    nos blocos `\textoresumo[brazil]{...}` e `\textoresumo[english]{...}`.
 3. **Escreva os capítulos** em `tex/*.tex` (substitua o lorem ipsum).
 4. **Cadastre as referências** em `referencias.bib` e cite com `\parencite{}` /
-   `\textcite{}`.
+   `\textcite{}` (citação direta curta com `\enquote{}`; longa com o ambiente
+   `citacao` — veja "Recursos demonstrados").
 5. **Compile** (veja "Compilação").
 
 ## Tipos de trabalho (opções do `\documentclass`)
@@ -110,14 +111,37 @@ template/
 
 ## Recursos demonstrados nos capítulos
 
-- Citações: `\parencite{}`, `\textcite{}`, `\parencite[p. 12]{}`
-- Figura com legenda e fonte (e placeholder `\figuraplaceholder`)
+O texto de exemplo já traz, pronto para copiar, os principais elementos ABNT:
+
+**Citações (NBR 10520:2023)** — em `tex/fundamentacao-teorica.tex`:
+- Indireta: `\parencite{}` → (SOBRENOME, ano); `\textcite{}` → Sobrenome (ano);
+  `\parencite[p. 12]{}` → com página
+- Direta **curta** (até 3 linhas): `\enquote{...}` — aspas curvas; **nunca** a aspa reta `"`
+- Direta **longa** (mais de 3 linhas): ambiente `citacao` (recuo 4 cm, fonte menor,
+  espaço simples, sem aspas)
+- `grifo nosso`, supressão `[...]` e `apud` (citação de citação)
+- Nota de rodapé (`\footnote`)
+
+**Ilustrações, tabelas e código** — legenda acima, fonte abaixo (ver seção própria):
+- Figura (com placeholder `\figuraplaceholder`) e gráfico `pgfplots`
+- Tabela `booktabs` (aberta, dados numéricos) e `quadro` (com bordas, dados textuais)
+- Listagem de código (`lstlisting`) e **algoritmo** em pseudocódigo (ambiente `algorithm`)
+
+**Estrutura e listas:**
 - Equação numerada e referenciável (`\autoref{eq:...}`)
-- `quadro` (tabela com bordas) e tabela `booktabs`
-- Gráfico com `pgfplots`
-- Listagem de código (`lstlisting`)
-- Listas (`itemize`, `enumerate` com rótulos personalizados)
-- Lista de siglas via `\nomenclature[S]{}`
+- Numeração progressiva **até o 5º nível** (seção → subseção → … → quinária)
+- `itemize`, `enumerate` e **alíneas** ABNT (`a) b) c)` + subalíneas)
+- Listas de figuras, tabelas, quadros, algoritmos, códigos e **siglas**
+  (siglas/abreviaturas via `\nomenclature[S]{}` / `\nomenclature[A]{}`)
+
+**Pré e pós-textuais:**
+- Resumo (PT) + *abstract* (EN) com palavras-chave; dedicatória, agradecimentos,
+  epígrafe e declaração de uso de IA generativa
+- Ficha catalográfica e folha de aprovação (elementos da versão final)
+- **Apêndice** e **anexo** de exemplo
+- **Referências de todos os tipos** em `referencias.bib`: livro (`@book`), artigo
+  (`@article`), trabalho em evento (`@inproceedings`), fonte on-line (`@online`) e
+  dissertação/tese (`@mastersthesis`/`@phdthesis`)
 
 ## Figuras, tabelas e quadros (legenda e fonte)
 
@@ -144,11 +168,15 @@ como espaço reservado enquanto não tiver a imagem real.
 
 ## Elementos opcionais
 
-No `thesis.tex`, descomente conforme necessário:
-- `\incluifichacatalografica{...}` — ficha catalográfica (obrigatória na versão final)
-- `\incluifolhadeaprovacao{...}` — folha de aprovação (após a defesa)
-- listas de tabelas / algoritmos / códigos
-- ambientes `apendicesenv` (apêndices) e `anexosenv` (anexos)
+O template vem com **todos os elementos habilitados, para demonstração**. No
+`thesis.tex`, ajuste ao seu trabalho:
+- `\incluifichacatalografica{...}` e `\incluifolhadeaprovacao{...}` — ficha
+  catalográfica e folha de aprovação são da **versão final** (após a defesa);
+  **comente-as** na qualificação.
+- `\incluilistade...` (figuras, tabelas, quadros, algoritmos, códigos, siglas) —
+  mantenha apenas as listas cujos elementos você realmente usa (lista sem elemento
+  sai vazia).
+- ambientes `apendicesenv` (apêndices) e `anexosenv` (anexos) — remova se não tiver.
 
 ## Fontes de referência
 
