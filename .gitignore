@@ -1,0 +1,40 @@
+# Arquivos auxiliares do LaTeX
+*.aux
+*.log
+*.out
+*.toc
+*.lof
+*.lot
+*.lol
+*.bbl
+*.bcf
+*.blg
+*.run.xml
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+*.synctex(busy)
+# Glossário / nomenclatura / siglas
+*.nlo
+*.nls
+*.ilg
+*.glo
+*.gls
+*.glg
+*.ist
+*.acn
+*.acr
+*.alg
+*.idx
+*.ind
+*.xdy
+# Sistema/editor
+*~
+*.bak
+.DS_Store
+Thumbs.db
+# Saída de build local (gerada; não versionar). thesis.pdf específico para
+# não afetar capa.pdf/contra-capa.pdf/Embranco.pdf, que são versionados.
+thesis.pdf
+*.loq
+*.mw
