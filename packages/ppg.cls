@@ -1443,32 +1443,31 @@
 % (MiKTeX, TeX Live/Overleaf) e independente da titlingpage/topskip. Requer 2
 % passadas de compilacao (o latexmk/Overleaf fazem isso automaticamente).
 \RequirePackage{tikz}
+\usetikzlibrary{calc}% para distribuir autor/titulo entre dois nos (sintaxe !frac!)
 \renewcommand{\imprimircapa}{%
   \begin{capa}%
-    % Tres zonas do Apendice A do guia UNIVALI: (1) instituicao+autor no TOPO,
-    % com o topo do texto a 3 cm da borda superior; (2) titulo no CENTRO vertical
-    % da folha; (3) local/ano no RODAPE, a ~2 cm da borda inferior. Margem
-    % esquerda 3 cm, largura = \textwidth. `inner sep=0pt` faz o topo do no
-    % coincidir com o topo do texto (sem precisar medir a ascendente).
+    % Posicionamento ABSOLUTO (TikZ current page): instituicao no TOPO (a 3 cm),
+    % local/ano no RODAPE (~2 cm); autor e titulo IGUALMENTE DISTRIBUIDOS entre o
+    % fim da instituicao e o local (autor a 1/3, titulo a 2/3 -> tres espacos
+    % iguais). Margem esquerda 3 cm, largura = \textwidth.
     \begin{tikzpicture}[remember picture, overlay]
-      % (1) instituicao + autor: TOPO do texto exatamente a 3 cm da borda.
-      % \topskip=0 + \setstretch (locais ao no) zeram o espaco que o vbox do no
-      % reserva acima da 1a linha, para o topo do no coincidir com o topo do
-      % texto em qualquer motor (sem isso, o Overleaf empurrava ~0,4 cm).
-      \node[anchor=north west, inner sep=0pt, text width=\textwidth, align=center]
+      % (1) instituicao no TOPO, topo do texto exatamente a 3 cm (no `inst`).
+      % \topskip=0 + \SingleSpacing (locais ao no) zeram o espaco que o vbox
+      % reserva acima da 1a linha, p/ o topo coincidir com 3 cm em qualquer motor.
+      \node[anchor=north west, inner sep=0pt, text width=\textwidth, align=center] (inst)
         at ([xshift=3cm, yshift=-3cm]current page.north west) {%
           \setlength{\topskip}{0pt}\SingleSpacing
-          {\@ppgPrograma\bfseries \imprimircapainstituicao\par}%
-          \vspace{2cm}\par
-          {\@ppgAutorCapa\bfseries \nohyphens{\MakeUppercase{\imprimirautor}}\par}};
-      % (2) titulo no centro vertical da folha
-      \node[anchor=west, inner sep=0pt, text width=\textwidth, align=center]
-        at ([xshift=3cm, yshift=-0.5\paperheight]current page.north west) {%
-          \begin{Spacing}{1.5}{\@ppgTituloFolhaRosto \nohyphens{\@ppgFmtTitulo}\par}\end{Spacing}};
-      % (3) local/ano: ultima linha (Ano) a ~2 cm da borda inferior
-      \node[anchor=south west, inner sep=0pt, text width=\textwidth, align=center]
+          {\@ppgPrograma\bfseries \imprimircapainstituicao\par}};
+      % (4) local/ano no RODAPE, ultima linha (Ano) a ~2 cm da borda (no `local`).
+      \node[anchor=south west, inner sep=0pt, text width=\textwidth, align=center] (local)
         at ([xshift=3cm, yshift=2cm]current page.south west) {%
           \begin{SingleSpace}{\@ppgLocalData \imprimirlocal\\[3pt] \@year\par}\end{SingleSpace}};
+      % (2) autor a 1/3 entre o fim da instituicao (inst.south) e o local (local.north)
+      \node[text width=\textwidth, align=center] at ($(inst.south)!1/3!(local.north)$) {%
+          {\@ppgAutorCapa\bfseries \nohyphens{\MakeUppercase{\imprimirautor}}\par}};
+      % (3) titulo a 2/3 -> autor e titulo ficam igualmente distribuidos
+      \node[text width=\textwidth, align=center] at ($(inst.south)!2/3!(local.north)$) {%
+          \begin{Spacing}{1.5}{\@ppgTituloFolhaRosto \nohyphens{\@ppgFmtTitulo}\par}\end{Spacing}};
     \end{tikzpicture}%
     \null% garante que a pagina da capa seja composta
   \end{capa}%
