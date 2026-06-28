@@ -14,8 +14,9 @@ Baseado em [abnTeX2](https://www.abntex.net.br/). O texto vem preenchido com
 
 1. **Escolha o tipo de trabalho** na primeira linha de `thesis.tex`, na opção do
    `\documentclass` (veja a tabela abaixo).
-2. **Preencha os metadados** (título, autor, orientador, data, curso) no início
-   de `thesis.tex`.
+2. **Preencha os metadados** (título PT/EN, autor, orientador, data, curso) no
+   início de `thesis.tex`, **e também o resumo, o abstract e as palavras-chave**
+   nos blocos `\textoresumo[brazil]{...}` e `\textoresumo[english]{...}`.
 3. **Escreva os capítulos** em `tex/*.tex` (substitua o lorem ipsum).
 4. **Cadastre as referências** em `referencias.bib` e cite com `\parencite{}` /
    `\textcite{}`.
@@ -60,6 +61,11 @@ Para mudar o cabeçalho impresso no topo da **capa**, use `\capainstituicao{...}
 é definida com `\local{...}`.
 
 ## Compilação
+
+**Pré-requisitos (build local):** uma distribuição TeX recente — **TeX Live**
+(Linux/macOS/Windows) ou **MiKTeX** (Windows) — que inclua `xelatex`, `biber`,
+`makeglossaries` e, opcionalmente, `latexmk`. Quem compila no **Overleaf** não
+precisa instalar nada (veja abaixo).
 
 Use **XeLaTeX** ou **LuaLaTeX** (não pdfLaTeX — o template usa as fontes Arial e
 Times em `packages/fonts/` via `fontspec`). A bibliografia usa **biber**.
@@ -139,3 +145,30 @@ No `thesis.tex`, descomente conforme necessário:
 - `\incluifolhadeaprovacao{...}` — folha de aprovação (após a defesa)
 - listas de tabelas / algoritmos / códigos
 - ambientes `apendicesenv` (apêndices) e `anexosenv` (anexos)
+
+## Fontes de referência
+
+As decisões de formatação codificadas em `packages/ppg.cls` seguem as normas
+ABNT e o guia institucional da UNIVALI:
+
+- **ABNT NBR 14724:2024** — Informação e documentação — Trabalhos acadêmicos —
+  Apresentação.
+- **ABNT NBR 6023:2025** — Informação e documentação — Referências — Elaboração.
+- **ABNT NBR 10520:2023** — Informação e documentação — Citações em documentos.
+- **ABNT NBR 6024** — Numeração progressiva das seções de um documento.
+- **UNIVALI** — *Livro digital para elaboração de trabalhos acadêmicos* (guia
+  institucional da Biblioteca/PPG).
+- **[abnTeX2](https://www.abntex.net.br/)** — classe LaTeX base que implementa a
+  ABNT, sobre a qual o `ppg.cls` é construído.
+
+> Os PDFs das normas ABNT são protegidos por direitos autorais e **não** são
+> redistribuídos neste repositório; consulte-os pela ABNT ou pela Biblioteca da
+> UNIVALI.
+
+## Licença
+
+Este template é derivado do **[abnTeX2](https://www.abntex.net.br/)** e é
+distribuído sob a **LaTeX Project Public License (LPPL) v1.3** — a mesma do
+abnTeX2 —, permitindo uso, cópia, modificação e redistribuição nos termos da
+licença. As fontes empacotadas em `packages/fonts/` (Arial e Times) permanecem
+sujeitas às suas próprias licenças. Veja <https://www.latex-project.org/lppl/>.
