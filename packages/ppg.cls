@@ -1445,28 +1445,33 @@
     % ano. Fonte 12, sem logo e sem nota de natureza (esta vai na f. de rosto).
     \vspace*{1.0cm}
 
-    % --- instituicao (topo, maiusculas, negrito) ---
+    % --- identificacao no TOPO: instituicao + autor agrupados (Apendice A do
+    % guia UNIVALI 2025): "identificacao centrada em letras maiusculas". Os dois
+    % ficam juntos no topo, separados por um espaco fixo (sem \vfill entre eles).
     % Quebra do nome do programa apos "EM" a pedido (nome fixo para permitir
     % a quebra manual; sigla via \imprimirsiglaprograma).
     \begin{SingleSpace}
       {\@ppgPrograma\bfseries \imprimircapainstituicao\par}
     \end{SingleSpace}
 
-    \vfill
+    \vspace{2cm}
 
     % --- autor (maiusculas, negrito) ---
     {\@ppgAutorCapa\bfseries \nohyphens{\MakeUppercase{\imprimirautor}}\par}
 
-    \vfill
+    % Glue assimetrica (1:3) para posicionar o titulo no centro VERTICAL da
+    % folha (Apendice A: "no centro da folha"), ja que o bloco de identificacao
+    % ocupa o topo. Sem isso, glue igual deixaria o titulo abaixo do centro.
+    \vspace{\stretch{1}}
 
-    % --- titulo (maiusculas) : subtitulo (minusculas) ---
+    % --- titulo NO CENTRO DA FOLHA (maiusculas) : subtitulo (minusculas) ---
     \begin{Spacing}{1.5}
       {\@ppgTituloFolhaRosto \nohyphens{\@ppgFmtTitulo}\par}
     \end{Spacing}
 
-    \vfill
+    \vspace{\stretch{3}}
 
-    % --- local (cidade) e ano (4 digitos) ---
+    % --- local (cidade) e ano (4 digitos), no rodape ---
     \begin{SingleSpace}
       {\@ppgLocalData \imprimirlocal\\[3pt] \@year\par}
     \end{SingleSpace}
@@ -1492,12 +1497,14 @@
 
     \vfill
 
-    % --- titulo (maiusculas) : subtitulo (minusculas) ---
+    % --- titulo NO CENTRO DA FOLHA (maiusculas) : subtitulo (minusculas), com
+    % a nota de natureza logo abaixo, agrupada ao titulo (Apendice B do guia
+    % UNIVALI 2025): espaco fixo entre titulo e nota, sem \vfill entre eles. ---
     \begin{Spacing}{1.5}
       {\@PPGTituloFolhaRosto\nohyphens{\@ppgFmtTitulo}\par}
     \end{Spacing}
 
-    \vfill
+    \vspace{1.5cm}
 
     % --- nota de natureza (preambulo) + area + orientador, alinhada a direita ---
     \abntex@ifnotempty{\imprimirpreambulo}{%
@@ -1537,8 +1544,10 @@
   
   % Secção secundaria (Section) Caixa baixa, Negrito
   \renewcommand*{\cftsectionfont}{\bfseries}
-  % Secção terciaria (Subsection) Caixa baixa, Negrito, italico
-  \renewcommand*{\cftsubsectionfont}{\itshape\bfseries}
+  % Secção terciaria (Subsection) Caixa baixa, italico (sem negrito) — Apendice
+  % D do guia UNIVALI: secao terciaria no sumario aparece em italico, nao em
+  % negrito. Destaque gradativo (NBR 6024): maiusc-negrito > negrito > italico.
+  \renewcommand*{\cftsubsectionfont}{\itshape}
   % Secção quaternaria (Subsubsection) Caixa baixa, italico
   \renewcommand*{\cftsubsubsectionfont}{\itshape}
   % Secao quinquenaria (Subsubsubsection) Caixa baixa
@@ -1565,7 +1574,8 @@
   
   % tamanhos de fontes de section, subsection, subsubsection e subsubsubsection
   \setsecheadstyle{\ABNTEXsectionfont\ABNTEXsectionfontsize\bfseries\ABNTEXsectionupperifneeded}
-  \setsubsecheadstyle{\ABNTEXsubsectionfont\ABNTEXsubsectionfontsize\bfseries\itshape\ABNTEXsubsectionupperifneeded}
+  % Seção terciária em itálico SEM negrito (Apêndice D / NBR 6024 — destaque gradativo)
+  \setsubsecheadstyle{\ABNTEXsubsectionfont\ABNTEXsubsectionfontsize\itshape\ABNTEXsubsectionupperifneeded}
   \setsubsubsecheadstyle{\ABNTEXsubsubsectionfont\ABNTEXsubsubsectionfontsize\itshape\ABNTEXsubsubsectionupperifneeded}
   \setsubsubsubsecheadstyle{\ABNTEXsubsubsubsectionfont\ABNTEXsubsubsubsectionfontsize\ABNTEXsubsubsubsectionupperifneeded}
  

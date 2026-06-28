@@ -12,6 +12,7 @@
 *.run.xml
 *.fls
 *.fdb_latexmk
+*.xdv
 *.synctex.gz
 *.synctex(busy)
 # Glossário / nomenclatura / siglas
