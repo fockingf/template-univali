@@ -10,6 +10,10 @@ teses de doutorado**, em conformidade com as normas ABNT adotadas pela UNIVALI:
 Baseado em [abnTeX2](https://www.abntex.net.br/). O texto vem preenchido com
 *lorem ipsum* e placeholders — substitua pelo seu conteúdo.
 
+> Guia institucional de referência: **UNIVALI — Livro digital para elaboração de
+> trabalhos acadêmicos** (guia da Biblioteca/PPG), disponível em
+> <https://portal.univali.br/biblioteca/normas-e-procedimentos#orientacoes>.
+
 ## Como começar
 
 1. **Escolha o tipo de trabalho** na primeira linha de `thesis.tex`, na opção do
@@ -157,7 +161,8 @@ ABNT e o guia institucional da UNIVALI:
 - **ABNT NBR 10520:2023** — Informação e documentação — Citações em documentos.
 - **ABNT NBR 6024** — Numeração progressiva das seções de um documento.
 - **UNIVALI** — *Livro digital para elaboração de trabalhos acadêmicos* (guia
-  institucional da Biblioteca/PPG).
+  institucional da Biblioteca/PPG), disponível em
+  <https://portal.univali.br/biblioteca/normas-e-procedimentos#orientacoes>.
 - **[abnTeX2](https://www.abntex.net.br/)** — classe LaTeX base que implementa a
   ABNT, sobre a qual o `ppg.cls` é construído.
 
