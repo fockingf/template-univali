@@ -1451,11 +1451,6 @@
     % esquerda 3 cm, largura = \textwidth. `inner sep=0pt` faz o topo do no
     % coincidir com o topo do texto (sem precisar medir a ascendente).
     \begin{tikzpicture}[remember picture, overlay]
-      % >>> DIAGNOSTICO TEMPORARIO: regua vermelha exatamente a 3 cm do topo
-      % (mesmo ancora da instituicao). Medir: a linha esta a 3 cm? o topo da
-      % instituicao coincide com ela? Remover depois de medir. <<<
-      \draw[red, line width=0.3pt]
-        ([yshift=-3cm]current page.north west) -- ([yshift=-3cm]current page.north east);
       % (1) instituicao + autor: TOPO do texto exatamente a 3 cm da borda.
       % \topskip=0 + \setstretch (locais ao no) zeram o espaco que o vbox do no
       % reserva acima da 1a linha, para o topo do no coincidir com o topo do
@@ -1487,9 +1482,11 @@
   % autor no TOPO (a 3 cm), titulo no CENTRO com a nota de natureza logo abaixo
   % (alinhada do meio da mancha a direita), local/ano no RODAPE (~2 cm).
   \begin{tikzpicture}[remember picture, overlay]
-    % (1) autor no topo: topo do texto a 3 cm da borda
+    % (1) autor no topo: topo do texto a 3 cm da borda (\topskip=0 local ao no
+    % zera o espaco que o vbox reserva acima do texto — ver \imprimircapa)
     \node[anchor=north west, inner sep=0pt, text width=\textwidth, align=center]
       at ([xshift=3cm, yshift=-3cm]current page.north west) {%
+        \setlength{\topskip}{0pt}\SingleSpacing
         {\@ppgAutorFolhaRosto \nohyphens{\MakeUppercase{\imprimirautor}}\par}};
     % (2) titulo no centro vertical + nota de natureza logo abaixo (a direita)
     \node[anchor=west, inner sep=0pt, text width=\textwidth, align=left]
