@@ -1456,10 +1456,14 @@
       % instituicao coincide com ela? Remover depois de medir. <<<
       \draw[red, line width=0.3pt]
         ([yshift=-3cm]current page.north west) -- ([yshift=-3cm]current page.north east);
-      % (1) instituicao + autor: TOPO do texto exatamente a 3 cm da borda
+      % (1) instituicao + autor: TOPO do texto exatamente a 3 cm da borda.
+      % \topskip=0 + \setstretch (locais ao no) zeram o espaco que o vbox do no
+      % reserva acima da 1a linha, para o topo do no coincidir com o topo do
+      % texto em qualquer motor (sem isso, o Overleaf empurrava ~0,4 cm).
       \node[anchor=north west, inner sep=0pt, text width=\textwidth, align=center]
         at ([xshift=3cm, yshift=-3cm]current page.north west) {%
-          \begin{SingleSpace}{\@ppgPrograma\bfseries \imprimircapainstituicao\par}\end{SingleSpace}%
+          \setlength{\topskip}{0pt}\SingleSpacing
+          {\@ppgPrograma\bfseries \imprimircapainstituicao\par}%
           \vspace{2cm}\par
           {\@ppgAutorCapa\bfseries \nohyphens{\MakeUppercase{\imprimirautor}}\par}};
       % (2) titulo no centro vertical da folha
