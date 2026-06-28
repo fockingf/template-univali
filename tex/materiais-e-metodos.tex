@@ -1,8 +1,8 @@
 % =====================================================================
 % MATERIAIS E MÉTODOS (Metodologia)
 % Descreva o tipo de pesquisa, materiais, procedimentos e instrumentos.
-% Este capítulo demonstra: quadro (tabela com borda), tabela booktabs e
-% listagem de código.
+% Este capítulo demonstra: quadro (tabela com borda), tabela booktabs, listagem
+% de código, algoritmo (pseudocódigo) e a numeração progressiva até o 5º nível.
 % =====================================================================
 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Este trabalho adota
@@ -88,3 +88,38 @@ print(media([120, 90, 40]))
 % Fonte do código, alinhada à esquerda e em tamanho reduzido (uniforme com a
 % legenda), conforme NBR 14724:2024 (5.8).
 \noindent{\ABNTEXfontereduzida Fonte: Elaborado pelo autor (\the\year{}).}
+
+%-------------------------------------------------------------
+\subsection{Detalhamento dos procedimentos}
+\label{sec:detalhamento}
+%-------------------------------------------------------------
+
+Esta seção terciária (3.2.1) e as seguintes demonstram a numeração progressiva
+até o quinto nível (NBR 6024). O \autoref{alg:media} formaliza o cálculo da média
+em pseudocódigo (ambiente \texttt{algorithm}, que popula a Lista de algoritmos).
+
+% --- EXEMPLO DE ALGORITMO (popula a Lista de algoritmos) -------------
+\begin{algorithm}[!htb]
+  \caption{Cálculo da média aritmética.}
+  \label{alg:media}
+  \begin{algorithmic}[1]
+    \Require lista de valores $V$ não vazia
+    \Ensure média aritmética $m$
+    \State $s \gets 0$
+    \For{cada $v \in V$}
+      \State $s \gets s + v$
+    \EndFor
+    \State $m \gets s \,/\, |V|$
+    \State \Return $m$
+  \end{algorithmic}
+\end{algorithm}
+
+\subsubsection{Aspecto específico}
+\label{sec:aspecto}
+Esta é uma seção quaternária (3.2.1.1). A numeração e o destaque acompanham o
+sumário (texto ↔ sumário idênticos, NBR 6024).
+
+\subsubsubsection{Item pontual}
+\label{sec:item}
+Esta é uma seção quinária (3.2.1.1.1) --- o nível mais profundo previsto. Use
+níveis profundos com parcimônia.

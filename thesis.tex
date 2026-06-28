@@ -134,23 +134,26 @@ method, main results, and conclusion.]
 % ELEMENTOS PRÉ-TEXTUAIS
 % =====================================================================
 % Ficha catalográfica — OPCIONAL na qualificação; obrigatória na versão final
-% (elaborada por bibliotecário(a)). Para incluir, descomente:
-%\incluifichacatalografica{tex/pre-textual/ficha-catalografica.tex}
+% (elaborada por bibliotecário(a)). Habilitada aqui para demonstração; na
+% qualificação, comente esta linha.
+\incluifichacatalografica{tex/pre-textual/ficha-catalografica.tex}
 
-% Folha de aprovação — obrigatória na versão FINAL (após a defesa). Descomente:
-%\incluifolhadeaprovacao{tex/pre-textual/folha-aprovacao.tex}
+% Folha de aprovação — obrigatória na versão FINAL (após a defesa). Habilitada
+% aqui para demonstração; na qualificação (sem defesa), comente esta linha.
+\incluifolhadeaprovacao{tex/pre-textual/folha-aprovacao.tex}
 
 % Dedicatória / Agradecimentos / Epígrafe — todos OPCIONAIS.
 \textodedicatoria*{tex/pre-textual/dedicatoria}
 \textoagradecimentos*{tex/pre-textual/agradecimentos}
 \textoepigrafe*{tex/pre-textual/epigrafe}
 
-% Listas (descomente as que for usar)
+% Listas (descomente as que for usar; aqui todas as aplicáveis estão ativas para
+% demonstração — o template tem figura, tabela, quadro, algoritmo e código)
 \incluilistadefiguras
-%\incluilistadetabelas
+\incluilistadetabelas
 \incluilistadequadros
-%\incluilistadealgoritmos
-%\incluilistadecodigos
+\incluilistadealgoritmos
+\incluilistadecodigos
 \incluilistadesiglas
 
 % =====================================================================
@@ -211,20 +214,28 @@ method, main results, and conclusion.]
 
 % ----------------------------------------------------------
 % APÊNDICES (produção do próprio autor) — OPCIONAL
+% Identificados por "APÊNDICE A", "APÊNDICE B"... (letras maiúsculas), título
+% centralizado. Cada \chapter vira um apêndice.
 % ----------------------------------------------------------
-%\begin{apendicesenv}
-%    \chapter{Título do apêndice}
-%    \label{ape:exemplo}
-%    Conteúdo do apêndice.
-%\end{apendicesenv}
+\begin{apendicesenv}
+    \chapter{Instrumento de coleta de dados}
+    \label{ape:questionario}
+    Material elaborado pelo próprio autor (ex.: roteiro de entrevista,
+    questionário, código-fonte completo). Lorem ipsum dolor sit amet,
+    consectetur adipiscing elit, sed do eiusmod tempor incididunt.
+\end{apendicesenv}
 
 % ----------------------------------------------------------
 % ANEXOS (material de terceiros) — OPCIONAL
+% Identificados por "ANEXO A", "ANEXO B"... Material NÃO elaborado pelo autor
+% (ex.: lei, parecer, tabela de terceiros).
 % ----------------------------------------------------------
-%\begin{anexosenv}
-%    \chapter{Título do anexo}
-%    \label{anx:exemplo}
-%    Conteúdo do anexo.
-%\end{anexosenv}
+\begin{anexosenv}
+    \chapter{Documento de terceiros}
+    \label{anx:documento}
+    Material não elaborado pelo autor (ex.: legislação, parecer do comitê de
+    ética, mapa ou tabela de outra fonte). Ut enim ad minim veniam, quis nostrud
+    exercitation ullamco laboris.
+\end{anexosenv}
 
 \end{document}

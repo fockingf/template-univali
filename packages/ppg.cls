@@ -1523,6 +1523,10 @@
 % Configuração dos Estilo dos Capitulo
 %===================================================================
 
+% Sinaliza se o capitulo atual e um apendice/anexo (para prefixar APÊNDICE/ANEXO
+% no titulo). Ligado pelos ambientes apendicesenv/anexosenv (ver apos \chapterstyle).
+\newif\ifppgapendice\ppgapendicefalse
+
 \makechapterstyle{ppg}{%
   \renewcommand{\chapterheadstart}{} 
   
@@ -1582,7 +1586,12 @@
     \ifthenelse{\boolean{abntex@innonumchapter}}{%
         \centering\chaptitlefont\ABNTEXchapterupperifneeded{##1}%
     }{%
-        \raggedright\chaptitlefont\thechapter\hspace{0.5em}\ABNTEXchapterupperifneeded{##1}%
+        % Em apendice/anexo, prefixa o nome do capitulo ("APÊNDICE A Titulo"); em
+        % capitulos normais, so "1 Titulo". \ifppgapendice e ligado pelos
+        % ambientes apendicesenv/anexosenv (ver patch abaixo).
+        \raggedright\chaptitlefont
+        \ifppgapendice\MakeUppercase{\@chapapp}\space\fi
+        \thechapter\hspace{0.5em}\ABNTEXchapterupperifneeded{##1}%
     }%
   }
 
@@ -1598,6 +1607,11 @@
   }
 }
 \chapterstyle{ppg}
+
+% Liga o prefixo APÊNDICE/ANEXO no titulo dos capitulos dentro desses ambientes
+% (o titulo passa a "APÊNDICE A ..." / "ANEXO A ..."); capitulos normais ficam "1 ...".
+\AtBeginEnvironment{apendicesenv}{\ppgapendicetrue}
+\AtBeginEnvironment{anexosenv}{\ppgapendicetrue}
 
 
 %===================================================================
