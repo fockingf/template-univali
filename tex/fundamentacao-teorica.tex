@@ -1,7 +1,9 @@
 % =====================================================================
 % FUNDAMENTAÇÃO TEÓRICA (Referencial Teórico)
 % Reúna os conceitos necessários para o leitor compreender o trabalho.
-% Este capítulo demonstra: figura, equação, citação e listas.
+% Este capítulo demonstra: citação (indireta, direta curta com \enquote, direta
+% longa com o ambiente citacao, grifo nosso, supressão [...] e apud), nota de
+% rodapé, figura, equação, alíneas (ABNT) e listas.
 % =====================================================================
 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
@@ -38,6 +40,19 @@ Já a citação com mais de três linhas é destacada do texto, como em
   Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
   fugiat nulla pariatur.
 \end{citacao}
+
+% Variações de chamada (NBR 10520:2023): grifo nosso (ao destacar parte da
+% citação), supressão com reticências entre colchetes [...] (trecho omitido) e
+% apud / citação de citação ("Autor original (ano apud Autor consultado, ano,
+% p.)"). A nota de rodapé vai em fonte menor e espaço simples (NBR 14724:2024).
+Ao destacar parte de uma citação, indica-se o grifo na
+chamada~\parencite[p.~22, grifo nosso]{exemplo-artigo}; trechos omitidos são
+marcados com reticências entre colchetes (\enquote{[\ldots] texto restante}).
+Quando se cita uma fonte por meio de outra, usa-se \emph{apud}: para Autor
+Original (1998 apud \citeauthor{exemplo-dissertacao}, \citeyear{exemplo-dissertacao},
+p.~30), o conceito se mantém.\footnote{Esta é uma nota de rodapé: digitada dentro
+das margens, em fonte menor e espaço simples, separada do texto por um filete
+(NBR 14724:2024).}
 
 % --- EXEMPLO DE FIGURA -----------------------------------------------
 % Para usar uma imagem real, troque o conteúdo do \centering pela linha:
@@ -80,3 +95,19 @@ Os principais pontos abordados foram:
   \item segundo ponto: consectetur adipiscing elit;
   \item terceiro ponto: sed do eiusmod tempor incididunt.
 \end{enumerate}
+
+% Alíneas (ABNT NBR 6024): subdivisão SEM título dentro de uma seção, quando não
+% se quer numerar com \section. Introduzidas por frase terminada em dois-pontos;
+% cada alínea em letra minúscula, terminando em ";" (a última em "."), ordenadas
+% a) b) c). Ambiente \begin{alineas} (abnTeX2); subdivisão extra: \begin{subalineas}.
+Sem necessidade de títulos, a enumeração também pode ser feita por alíneas:
+
+\begin{alineas}
+  \item primeira alínea, em letra minúscula, terminando em ponto-e-vírgula;
+  \item segunda alínea, que pode se desdobrar em subalíneas:
+  \begin{subalineas}
+    \item primeira subalínea;
+    \item segunda subalínea;
+  \end{subalineas}
+  \item última alínea, terminando em ponto.
+\end{alineas}
