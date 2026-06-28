@@ -1,0 +1,7 @@
+Coloque aqui as imagens do seu trabalho (PNG, JPG, PDF, EPS).
+
+No texto, insira com:
+    \includegraphics[width=0.75\textwidth]{imagens/nome-do-arquivo.png}
+
+Enquanto a imagem real não existir, o template usa \figuraplaceholder{...}
+(uma caixa cinza), definido em tex/_placeholders.tex.

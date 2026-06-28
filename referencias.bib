@@ -1,0 +1,46 @@
+% =====================================================================
+% Base de referências (biblatex + biber, estilo ABNT NBR 6023:2025).
+% Cadastre cada obra com um @tipo{chave, campo = {valor}, ...}.
+% Cite no texto com \parencite{chave} ou \textcite{chave}.
+% Exemplos abaixo (substitua pelos seus). Tipos comuns: @book, @article,
+% @inproceedings, @online, @mastersthesis, @phdthesis, @techreport.
+% =====================================================================
+
+@book{exemplo-livro,
+  author    = {Sobrenome, Nome and Outro, Autor},
+  title     = {Título do livro},
+  subtitle  = {Subtítulo, se houver},
+  edition   = {2},
+  publisher = {Editora},
+  address   = {Cidade},
+  year      = {2020},
+}
+
+@article{exemplo-artigo,
+  author  = {Sobrenome, Primeiro and Sobrenome, Segundo},
+  title   = {Título do artigo de periódico},
+  journal = {Nome do Periódico},
+  volume  = {12},
+  number  = {3},
+  pages   = {45--60},
+  year    = {2023},
+  doi     = {10.0000/exemplo},
+}
+
+@inproceedings{exemplo-evento,
+  author    = {Sobrenome, Autor},
+  title     = {Título do trabalho apresentado em evento},
+  booktitle = {Anais do Nome do Evento},
+  address   = {Cidade},
+  publisher = {Editora/Sociedade},
+  pages     = {1--10},
+  year      = {2022},
+}
+
+@online{exemplo-site,
+  author       = {{Nome da Instituição}},
+  title        = {Título da página ou documento on-line},
+  year         = {2024},
+  url          = {https://www.exemplo.org/pagina},
+  urldate      = {2026-06-26},
+}

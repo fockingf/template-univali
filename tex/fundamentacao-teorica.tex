@@ -1,0 +1,60 @@
+% =====================================================================
+% FUNDAMENTAÇÃO TEÓRICA (Referencial Teórico)
+% Reúna os conceitos necessários para o leitor compreender o trabalho.
+% Este capítulo demonstra: figura, equação, citação e listas.
+% =====================================================================
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+incididunt ut labore et dolore magna aliqua~\parencite{exemplo-livro}. Ut enim ad
+minim veniam, quis nostrud exercitation ullamco laboris.
+
+%-------------------------------------------------------------
+\section{Primeiro conceito}
+\label{sec:conceito-um}
+%-------------------------------------------------------------
+
+Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
+fugiat nulla pariatur~\parencite{exemplo-artigo}. A \autoref{fig:exemplo} ilustra
+o conceito.
+
+% --- EXEMPLO DE FIGURA -----------------------------------------------
+% Para usar uma imagem real, troque o conteúdo do \centering pela linha:
+%   \includegraphics[width=0.75\textwidth]{imagens/sua-figura.png}
+% O comando \figuraplaceholder (definido em tex/_placeholders.tex) apenas
+% desenha uma caixa cinza para o template compilar sem imagens externas.
+\begin{figure}[!htb]
+  \caption{Legenda da figura (acima da figura, conforme NBR 14724).}
+  \label{fig:exemplo}
+  \centering
+  % A fonte fica alinhada à margem esquerda DA FIGURA (não do texto).
+  \elementocomfonte{\figuraplaceholder{0.6\textwidth}{4cm}{imagens/sua-figura.png}}%
+    {Fonte: Elaborada pelo autor (\the\year{}).}
+\end{figure}
+
+%-------------------------------------------------------------
+\section{Formulação matemática}
+\label{sec:formulacao}
+%-------------------------------------------------------------
+
+Equações são numeradas e podem ser referenciadas, como mostra a
+\autoref{eq:exemplo}:
+
+\begin{equation}
+  E = m c^{2},
+  \label{eq:exemplo}
+\end{equation}
+
+\noindent onde $E$ é a energia, $m$ a massa e $c$ a velocidade da luz no vácuo.
+At vero eos et accusamus et iusto odio dignissimos ducimus.
+
+%-------------------------------------------------------------
+\section{Síntese}
+%-------------------------------------------------------------
+
+Os principais pontos abordados foram:
+
+\begin{enumerate}[label=(\roman*)]
+  \item primeiro ponto: lorem ipsum dolor sit amet;
+  \item segundo ponto: consectetur adipiscing elit;
+  \item terceiro ponto: sed do eiusmod tempor incididunt.
+\end{enumerate}

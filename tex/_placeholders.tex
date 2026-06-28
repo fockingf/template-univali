@@ -1,0 +1,19 @@
+% =====================================================================
+% Utilitários de PLACEHOLDER para o template.
+% Pode remover este arquivo (e o \input dele em thesis.tex) quando o
+% trabalho estiver com figuras reais.
+% =====================================================================
+
+% Caixa cinza tracejada que ocupa o lugar de uma figura ainda não inserida.
+% Uso: \figuraplaceholder{largura}{altura}{caminho-sugerido}
+%   ex.: \figuraplaceholder{0.6\textwidth}{4cm}{imagens/sua-figura.png}
+% Para inserir a imagem real, troque a chamada por:
+%   \includegraphics[width=0.6\textwidth]{imagens/sua-figura.png}
+\newcommand{\figuraplaceholder}[3]{%
+  \begin{tikzpicture}
+    \node[draw=gray, fill=gray!12, thick, dashed, rounded corners,
+          minimum width=#1, minimum height=#2, align=center,
+          text=gray!60, font=\small, inner sep=6pt]
+      {[ FIGURA --- substitua por\\ \texttt{\textbackslash includegraphics\{#3\}} ]};
+  \end{tikzpicture}%
+}

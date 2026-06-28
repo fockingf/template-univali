@@ -1,0 +1,90 @@
+% =====================================================================
+% MATERIAIS E MÉTODOS (Metodologia)
+% Descreva o tipo de pesquisa, materiais, procedimentos e instrumentos.
+% Este capítulo demonstra: quadro (tabela com borda), tabela booktabs e
+% listagem de código.
+% =====================================================================
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Este trabalho adota
+abordagem qualitativa, quantitativa ou mista e caracteriza-se como pesquisa
+exploratória, descritiva ou explicativa~\parencite{exemplo-livro}. [Descreva o
+tipo de pesquisa adotado.]
+
+%-------------------------------------------------------------
+\section{Materiais}
+\label{sec:materiais}
+%-------------------------------------------------------------
+
+O \autoref{quad:materiais} lista os materiais utilizados.
+
+% --- EXEMPLO DE QUADRO (tabela com bordas; legenda acima) ------------
+\begin{quadro}[!htb]
+  \caption{Materiais e instrumentos utilizados.}
+  \label{quad:materiais}
+  \centering
+  % A fonte fica alinhada à margem esquerda DO QUADRO (não do texto).
+  \elementocomfonte{%
+  \begin{tabular}{|l|l|c|}
+    \hline
+    \textbf{Item} & \textbf{Descrição} & \textbf{Quantidade} \\
+    \hline
+    Item A & Lorem ipsum dolor sit amet & 2 \\
+    \hline
+    Item B & Consectetur adipiscing elit & 5 \\
+    \hline
+    Item C & Sed do eiusmod tempor        & 1 \\
+    \hline
+  \end{tabular}}%
+  {Fonte: Elaborado pelo autor (\the\year{}).}
+\end{quadro}
+
+A \autoref{tab:dados} apresenta os mesmos dados no estilo \textit{booktabs}
+(tabela aberta, sem bordas verticais), recomendado para dados numéricos.
+
+% --- EXEMPLO DE TABELA (estilo booktabs) -----------------------------
+\begin{table}[!htb]
+  \caption{Exemplo de tabela numérica.}
+  \label{tab:dados}
+  \centering
+  % A fonte fica alinhada à margem esquerda DA TABELA (não do texto).
+  \elementocomfonte{%
+  \begin{tabular}{lrr}
+    \toprule
+    \textbf{Categoria} & \textbf{Valor} & \textbf{\%} \\
+    \midrule
+    Primeira  & 120 & 48,0 \\
+    Segunda   &  90 & 36,0 \\
+    Terceira  &  40 & 16,0 \\
+    \midrule
+    \textbf{Total} & \textbf{250} & \textbf{100,0} \\
+    \bottomrule
+  \end{tabular}}%
+  {Fonte: Elaborada pelo autor (\the\year{}).}
+\end{table}
+
+%-------------------------------------------------------------
+\section{Procedimentos}
+\label{sec:procedimentos}
+%-------------------------------------------------------------
+
+Os procedimentos foram organizados nas seguintes etapas:
+
+\begin{enumerate}[label=\arabic*.]
+  \item \textbf{Etapa um:} lorem ipsum dolor sit amet, consectetur adipiscing;
+  \item \textbf{Etapa dois:} sed do eiusmod tempor incididunt ut labore;
+  \item \textbf{Etapa três:} ut enim ad minim veniam, quis nostrud exercitation.
+\end{enumerate}
+
+O \autoref{lst:exemplo} mostra um exemplo de trecho de código.
+
+% --- EXEMPLO DE LISTAGEM DE CÓDIGO -----------------------------------
+\begin{lstlisting}[language=Python, caption={Exemplo de código.}, label={lst:exemplo}]
+def media(valores):
+    # Calcula a media aritmetica de uma lista
+    return sum(valores) / len(valores)
+
+print(media([120, 90, 40]))
+\end{lstlisting}
+% Fonte do código, alinhada à esquerda e em tamanho reduzido (uniforme com a
+% legenda), conforme NBR 14724:2024 (5.8).
+\noindent{\ABNTEXfontereduzida Fonte: Elaborado pelo autor (\the\year{}).}

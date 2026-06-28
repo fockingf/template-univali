@@ -1,0 +1,230 @@
+% !TEX program = xelatex
+% IMPORTANTE: compile com XeLaTeX (ou LuaLaTeX), NÃO pdfLaTeX — o template usa
+% as fontes Arial/Times via fontspec. No Overleaf: Menu > Settings > Compiler > XeLaTeX.
+% =====================================================================
+% TEMPLATE DE TRABALHO ACADÊMICO (Dissertação de Mestrado / Tese de Doutorado)
+% Programa de Pós-Graduação — UNIVALI
+% Em conformidade com:
+%   ABNT NBR 14724:2024 (apresentação de trabalhos acadêmicos)
+%   ABNT NBR 6023:2025   (referências)
+%   ABNT NBR 10520:2023  (citações)
+% ---------------------------------------------------------------------
+% COMO USAR (resumo — detalhes no README.md):
+%   1. Preencha os METADADOS abaixo (\titulo..., \autor, \orientador...).
+%   2. Escreva os capítulos em tex/*.tex (substitua o texto de exemplo).
+%   3. Cadastre suas referências em referencias.bib.
+%   4. Compile com XeLaTeX ou LuaLaTeX + biber (ver README.md).
+% Os textos abaixo estão em "lorem ipsum"/placeholder: substitua-os.
+% =====================================================================
+
+% --- OPÇÕES DA CLASSE -------------------------------------------------
+% NÍVEL DO TRABALHO (escolha UM):
+%   graduacao | tcc        = "Trabalho de Conclusão de Curso", grau Bacharel
+%   especializacao | monografia = "Monografia", grau Especialista
+%   mestrado               = "Dissertação", grau Mestre/Mestra
+%   doutorado              = "Tese", grau Doutor/Doutora  (padrão)
+% MODIFICADORES (opcionais):
+%   qualificacao = versão de qualificação (só mestrado/doutorado; suprime carimbo)
+%   pre-defesa   = carimba "EXEMPLAR DE DEFESA"
+%   pos-defesa   = carimba "VERSÃO FINAL" (padrão)
+%   impressao    = versão para gráfica (desativa capa/contracapa no PDF)
+% Exemplos:
+%   [mestrado,qualificacao]   [doutorado,pos-defesa]
+%   [tcc]                     [especializacao]
+\documentclass[mestrado,qualificacao]{packages/ppg}
+
+\usepackage[brazil]{babel}
+\usepackage{csquotes}            % recomendado para biblatex + babel
+
+% Arquivo de referências (biblatex-abnt)
+\addbibresource{referencias.bib}
+
+% --- PACOTES OPCIONAIS (mantenha apenas os que usar) ------------------
+\usepackage{multirow}            % células mescladas em tabelas
+\usepackage{makecell}            % \thead / \headrow em cabeçalhos
+\usepackage{booktabs}            % \toprule \midrule \bottomrule
+\usepackage{longtable}           % tabelas que cruzam páginas
+\usepackage{tikz}                % desenhos e diagramas
+\usetikzlibrary{shapes.geometric,arrows.meta,positioning}
+\usepackage{pgfplots}            % gráficos (barras, dispersão, linhas)
+\pgfplotsset{compat=1.17}
+\usepackage{enumitem}            % listas com rótulos personalizados
+
+\addto\captionsbrazil{\renewcommand{\listfigurename}{Lista de figuras}}
+
+% --- ESTILO PARA LISTAGENS DE CÓDIGO (listings; opcional) -------------
+\definecolor{codegreen}{RGB}{64, 180, 64}
+\definecolor{codegray}{RGB}{130, 130, 130}
+\definecolor{backcolour}{RGB}{245, 245, 235}
+\lstdefinestyle{code}{
+    backgroundcolor = \color{backcolour},
+    commentstyle    = \color{codegreen},
+    keywordstyle    = \color{magenta},
+    numberstyle     = \tiny\color{codegray},
+    basicstyle      = \ttfamily\scriptsize,
+    breaklines      = true,
+    captionpos      = t,   % legenda ACIMA do código (NBR 14724:2024, 5.8)
+    numbers         = left,
+    numbersep       = 5pt,
+    tabsize         = 2,
+}
+\lstset{style=code}
+
+% Utilitários de placeholder (caixa de figura). Remova quando não precisar mais.
+\input{tex/_placeholders}
+
+% =====================================================================
+% METADADOS DA CAPA E FOLHA DE ROSTO  — PREENCHA AQUI
+% Na capa/folha de rosto, apenas a 1ª letra (ou nomes próprios) em maiúscula.
+% =====================================================================
+\tituloPT{Título do trabalho em português: subtítulo, se houver}
+\tituloEN{Title of the work in English: subtitle, if any}
+\autor[Sobrenome, N. N.]{Nome Completo do Autor}
+\genero{M}                       % M = Masculino / F = Feminino
+\orientador[Orientador]{Prof. Dr.}{Nome do Orientador}
+\coorientador[Coorientador]{Prof. Dr.}{Nome do Coorientador} % opcional
+\data{31}{12}{2026}              % data do depósito (dia, mês, ano)
+\idioma{PT}                      % idioma principal (PT ou EN)
+\local{Itajaí}                   % cidade na capa e folha de rosto
+
+% --- INSTITUIÇÃO / CURSO ----------------------------------------------
+% OPÇÃO A — Pós-graduação UNIVALI pré-configurada (PPGCA): basta a sigla.
+% Já define área e especialidade automaticamente.
+\curso{PPGC}
+%
+% OPÇÃO B — QUALQUER OUTRO curso (inclusive TCC/monografia): comente a linha
+% acima, descomente as três linhas abaixo e preencha. Aqui você define a área
+% e a especialidade manualmente (não use \curso{PPGC} junto, pois ele as
+% sobrescreve).
+%\curso{Curso de Ciência da Computação -- UNIVALI}   % nome do curso/instituição
+%\area{Engenharia de Software}                        % aparece na folha de rosto
+%\especialidade{em Ciência da Computação}             % completa "...título de <grau> <especialidade>"
+
+% Cabeçalho da instituição no TOPO DA CAPA (opcional; só redefina se NÃO usar o PPGCA).
+% Útil em TCC/monografia. Use \\ para quebrar linhas; será exibido em maiúsculas.
+%\capainstituicao{UNIVERSIDADE DO VALE DO ITAJAÍ\\[6pt] ~\\[6pt] CENTRO DE CIÊNCIAS TECNOLÓGICAS\\ CURSO DE CIÊNCIA DA COMPUTAÇÃO}
+
+% =====================================================================
+% RESUMO (PORTUGUÊS) — máx. 500 palavras, de 1 a 5 palavras-chave
+% =====================================================================
+\textoresumo[brazil]{
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor
+incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
+nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
+fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
+culpa qui officia deserunt mollit anim id est laborum. [Substitua por: contexto,
+problema, objetivo, método, principais resultados e conclusão do seu trabalho.]
+}
+{Palavra-chave um. Palavra-chave dois. Palavra-chave três.}
+
+% =====================================================================
+% RESUMO (INGLÊS / ABSTRACT) — máx. 500 palavras, de 1 a 5 palavras-chave
+% =====================================================================
+\textoresumo[english]{
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
+nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+[Replace with the English version of your abstract: context, problem, objective,
+method, main results, and conclusion.]
+}
+{Keyword one. Keyword two. Keyword three.}
+
+% =====================================================================
+% ELEMENTOS PRÉ-TEXTUAIS
+% =====================================================================
+% Ficha catalográfica — OPCIONAL na qualificação; obrigatória na versão final
+% (elaborada por bibliotecário(a)). Para incluir, descomente:
+%\incluifichacatalografica{tex/pre-textual/ficha-catalografica.tex}
+
+% Folha de aprovação — obrigatória na versão FINAL (após a defesa). Descomente:
+%\incluifolhadeaprovacao{tex/pre-textual/folha-aprovacao.tex}
+
+% Dedicatória / Agradecimentos / Epígrafe — todos OPCIONAIS.
+\textodedicatoria*{tex/pre-textual/dedicatoria}
+\textoagradecimentos*{tex/pre-textual/agradecimentos}
+\textoepigrafe*{tex/pre-textual/epigrafe}
+
+% Listas (descomente as que for usar)
+\incluilistadefiguras
+%\incluilistadetabelas
+\incluilistadequadros
+%\incluilistadealgoritmos
+%\incluilistadecodigos
+\incluilistadesiglas
+
+% =====================================================================
+% LISTA DE ABREVIATURAS (grupo A) E SIGLAS (grupo S)
+% Cadastre aqui cada sigla com \nomenclature; ela aparece automaticamente
+% na "Lista de siglas". Exemplos abaixo — substitua pelos seus.
+% =====================================================================
+\nomenclature[A]{ed.}{Edição}
+\nomenclature[A]{p.}{Página}
+
+\nomenclature[S]{ABNT}{Associação Brasileira de Normas Técnicas}
+\nomenclature[S]{UNIVALI}{Universidade do Vale do Itajaí}
+\nomenclature[S]{PPG}{Programa de Pós-Graduação}
+
+% =====================================================================
+% INÍCIO DO DOCUMENTO
+% =====================================================================
+\begin{document}
+
+% Declaração de uso de IA Generativa (Política CNPq, Portaria 2.664/2026, Art. 9).
+% Remova esta linha se não tiver utilizado IA generativa no trabalho.
+\input{tex/pre-textual/declaracao-ia}
+
+% ----------------------------------------------------------
+% ELEMENTOS TEXTUAIS
+% ----------------------------------------------------------
+\textual
+
+\chapter{Introdução}
+\label{chp:introducao}
+\input{tex/introducao}
+
+\chapter{Fundamentação Teórica}
+\label{chp:fundamentacao-teorica}
+\input{tex/fundamentacao-teorica}
+
+\chapter{Materiais e Métodos}
+\label{chp:materiais-metodos}
+\input{tex/materiais-e-metodos}
+
+\chapter{Resultados e Discussão}
+\label{chp:resultados}
+\input{tex/resultados}
+
+\chapter{Considerações Finais}
+\label{chp:consideracoes-finais}
+\input{tex/conclusao}
+
+% ----------------------------------------------------------
+% ELEMENTOS PÓS-TEXTUAIS
+% ----------------------------------------------------------
+\bookmarksetup{startatroot}
+\postextual
+
+% Lista de siglas/abreviaturas (glossário) e Referências
+\printglossary
+\printbibliography[title={REFERÊNCIAS}]
+
+% ----------------------------------------------------------
+% APÊNDICES (produção do próprio autor) — OPCIONAL
+% ----------------------------------------------------------
+%\begin{apendicesenv}
+%    \chapter{Título do apêndice}
+%    \label{ape:exemplo}
+%    Conteúdo do apêndice.
+%\end{apendicesenv}
+
+% ----------------------------------------------------------
+% ANEXOS (material de terceiros) — OPCIONAL
+% ----------------------------------------------------------
+%\begin{anexosenv}
+%    \chapter{Título do anexo}
+%    \label{anx:exemplo}
+%    Conteúdo do anexo.
+%\end{anexosenv}
+
+\end{document}
