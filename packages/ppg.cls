@@ -1437,111 +1437,83 @@
   \endgroup
 }
 
+% Posicionamento absoluto da capa/folha de rosto (independe do motor TeX).
+\RequirePackage{eso-pic}
+% Comprimento auxiliar p/ medir a ascendente da 1a linha da capa.
+\newlength{\ppgcaph}
 \renewcommand{\imprimircapa}{%
   \begin{capa}%
-    \centering
-    % Modelo do Apendice A do guia UNIVALI 2025 (e NBR 14724:2024): nome da
-    % instituicao (maiusculas), autor, titulo:subtitulo no centro, local e
-    % ano. Fonte 12, sem logo e sem nota de natureza (esta vai na f. de rosto).
-    % NBR 14724 / Apendice A: 3 cm da borda superior ao topo do texto. A area de
-    % texto da titlingpage comeca ~2,5 cm da borda (acima da margem de 3 cm do
-    % corpo). \topskip=0 faz o topo da 1a caixa independer da fonte, e o \vspace*
-    % calibrado poe o topo da 1a linha sobre a linha de 3 cm (medido: 3,02 cm).
-    % IMPORTANTE: \topskip=0 e local (\begingroup) e restaurado logo apos a 1a
-    % linha; se ficasse ativo ate o \cleardoublepage da capa, geraria uma pagina
-    % em branco extra antes da folha de rosto.
-    % --- identificacao no TOPO: instituicao + autor agrupados (Apendice A do
-    % guia UNIVALI 2025): "identificacao centrada em letras maiusculas". Os dois
-    % ficam juntos no topo, separados por um espaco fixo (sem \vfill entre eles).
-    % Quebra do nome do programa apos "EM" a pedido (nome fixo para permitir
-    % a quebra manual; sigla via \imprimirsiglaprograma).
-    \begingroup
-      \setlength{\topskip}{0pt}\vspace*{11pt}%
-      \begin{SingleSpace}
-        {\@ppgPrograma\bfseries \imprimircapainstituicao\par}
-      \end{SingleSpace}%
-    \endgroup
-
-    \vspace{2cm}
-
-    % --- autor (maiusculas, negrito) ---
-    {\@ppgAutorCapa\bfseries \nohyphens{\MakeUppercase{\imprimirautor}}\par}
-
-    % Glue assimetrica (1:3) para posicionar o titulo no centro VERTICAL da
-    % folha (Apendice A: "no centro da folha"), ja que o bloco de identificacao
-    % ocupa o topo. Sem isso, glue igual deixaria o titulo abaixo do centro.
-    \vspace{\stretch{1}}
-
-    % --- titulo NO CENTRO DA FOLHA (maiusculas) : subtitulo (minusculas) ---
-    \begin{Spacing}{1.5}
-      {\@ppgTituloFolhaRosto \nohyphens{\@ppgFmtTitulo}\par}
-    \end{Spacing}
-
-    \vspace{\stretch{3}}
-
-    % --- local (cidade) e ano (4 digitos), no rodape ---
-    \begin{SingleSpace}
-      {\@ppgLocalData \imprimirlocal\\[3pt] \@year\par}
-    \end{SingleSpace}
-
-    \vspace*{1.0cm}
+    % POSICIONAMENTO ABSOLUTO a partir da borda do papel (eso-pic) — independe do
+    % motor TeX (MiKTeX/TeX Live/Overleaf), da titlingpage e do \topskip, que
+    % posicionam o texto de forma diferente entre ambientes. Tres zonas do
+    % Apendice A do guia UNIVALI: (1) instituicao+autor no TOPO, com o topo do
+    % texto a 3 cm da borda superior; (2) titulo no CENTRO vertical da folha;
+    % (3) local/ano no RODAPE, a ~2 cm da borda inferior. Margem esquerda 3 cm.
+    \settoheight{\ppgcaph}{\@ppgPrograma\bfseries \'A}% ascendente (cap+acento) da 1a linha
+    \AddToShipoutPictureFG*{\AtPageUpperLeft{%
+      % (1) topo: baseline = 3 cm + ascendente  =>  TOPO do texto exatamente a 3 cm
+      \put(\LenToUnit{3cm},\LenToUnit{\dimexpr -3cm-\ppgcaph\relax}){%
+        \parbox[t]{\textwidth}{\centering
+          \begin{SingleSpace}{\@ppgPrograma\bfseries \imprimircapainstituicao\par}\end{SingleSpace}%
+          \vspace{2cm}\par
+          {\@ppgAutorCapa\bfseries \nohyphens{\MakeUppercase{\imprimirautor}}\par}}}%
+      % (2) centro vertical da folha
+      \put(\LenToUnit{3cm},\LenToUnit{\dimexpr -0.5\paperheight\relax}){%
+        \parbox[c]{\textwidth}{\centering
+          \begin{Spacing}{1.5}{\@ppgTituloFolhaRosto \nohyphens{\@ppgFmtTitulo}\par}\end{Spacing}}}%
+      % (3) rodape: ultima linha (Ano) a ~2 cm da borda inferior
+      \put(\LenToUnit{3cm},\LenToUnit{\dimexpr -\paperheight+2cm\relax}){%
+        \parbox[b]{\textwidth}{\centering
+          \begin{SingleSpace}{\@ppgLocalData \imprimirlocal\\[3pt] \@year\par}\end{SingleSpace}}}%
+    }}%
+    \null% garante que a pagina da capa seja composta
   \end{capa}%
 }
 
 % folha de rosto
 \newboolean{carimbo-folha-rosto}
 \setboolean{carimbo-folha-rosto}{true}
-\renewcommand{\folhaderostocontent}{
-  \begin{center}
+\renewcommand{\folhaderostocontent}{%
+  % POSICIONAMENTO ABSOLUTO a partir da borda do papel (eso-pic) — independe do
+  % motor TeX/titlingpage, como em \imprimircapa. Modelo do Apendice B do guia
+  % UNIVALI 2025 (NBR 14724:2024): autor no TOPO (a 3 cm), titulo no CENTRO da
+  % folha com a nota de natureza (preambulo + area + orientador) logo abaixo,
+  % alinhada do meio da mancha a direita; local/ano no RODAPE (~2 cm).
+  \settoheight{\ppgcaph}{\@ppgAutorFolhaRosto \'A}% ascendente da 1a linha (autor)
+  \AddToShipoutPictureFG*{\AtPageUpperLeft{%
+    % (1) autor no topo: topo do texto a 3 cm da borda superior
+    \put(\LenToUnit{3cm},\LenToUnit{\dimexpr -3cm-\ppgcaph\relax}){%
+      \parbox[t]{\textwidth}{\centering
+        {\@ppgAutorFolhaRosto \nohyphens{\MakeUppercase{\imprimirautor}}\par}}}%
+    % (2) titulo no centro vertical da folha + nota de natureza logo abaixo
+    \put(\LenToUnit{3cm},\LenToUnit{\dimexpr -0.5\paperheight\relax}){%
+      \parbox[t]{\textwidth}{%
+        {\centering\begin{Spacing}{1.5}{\@PPGTituloFolhaRosto\nohyphens{\@ppgFmtTitulo}\par}\end{Spacing}\par}%
+        \abntex@ifnotempty{\imprimirpreambulo}{%
+          \vspace{1.5cm}\par\noindent
+          \hspace*{.43\textwidth}%
+          \begin{minipage}{8.4cm}
+            \begin{SingleSpace}
+              {\@PPGPreambulo\imprimirpreambulo}%
 
-    % Modelo do Apendice B do guia UNIVALI 2025 (e NBR 14724:2024): autor no
-    % topo, titulo:subtitulo no centro, nota de natureza (preambulo) com a
-    % instituicao e a area, orientador, local e ano. Sem logo, sem instituicao
-    % no topo e sem "por" (a instituicao consta na nota de natureza).
-    % --- autor (topo, maiusculas) --- topo a 3 cm (mesma tecnica da capa:
-    % \topskip=0 local + \vspace* calibrado; restaurado logo apos a 1a linha).
-    \begingroup
-      \setlength{\topskip}{0pt}\vspace*{14pt}%
-      {\@ppgAutorFolhaRosto \nohyphens{\MakeUppercase{\imprimirautor}}\par}%
-    \endgroup
+              \vspace{5pt}
+              {\@PPGPreambulo\arealabel: \nohyphens{\imprimirarea}}%
 
-    \vfill
-
-    % --- titulo NO CENTRO DA FOLHA (maiusculas) : subtitulo (minusculas), com
-    % a nota de natureza logo abaixo, agrupada ao titulo (Apendice B do guia
-    % UNIVALI 2025): espaco fixo entre titulo e nota, sem \vfill entre eles. ---
-    \begin{Spacing}{1.5}
-      {\@PPGTituloFolhaRosto\nohyphens{\@ppgFmtTitulo}\par}
-    \end{Spacing}
-
-    \vspace{1.5cm}
-
-    % --- nota de natureza (preambulo) + area + orientador, alinhada a direita ---
-    \abntex@ifnotempty{\imprimirpreambulo}{%
-      \hspace{.43\textwidth}
-      \begin{minipage}{8.4cm}
-        \begin{SingleSpace}
-          {\@PPGPreambulo\imprimirpreambulo}%
-
-          \vspace{5pt}
-          {\@PPGPreambulo\arealabel: \nohyphens{\imprimirarea}}%
-
-          \vspace{5pt}
-          {\@PPGOrientador\imprimirorientadorRotulo: \titulacaoorientador{} \nohyphens{\imprimirorientador}}%
-          \abntex@ifnotempty{\imprimircoorientador}{%
-              \\{\@PPGOrientador\imprimircoorientadorRotulo: \titulacaocoorientador{} \nohyphens{\imprimircoorientador}}
-          }%
-        \end{SingleSpace}
-      \end{minipage}%
-    }%
-
-    \vfill
-
-    % --- local (cidade) e ano (4 digitos) ---
-    {\@PPGLocalData \imprimirlocal\\ \@year\par}
-    \vspace*{1.0cm}
-  \end{center}
-
+              \vspace{5pt}
+              {\@PPGOrientador\imprimirorientadorRotulo: \titulacaoorientador{} \nohyphens{\imprimirorientador}}%
+              \abntex@ifnotempty{\imprimircoorientador}{%
+                  \\{\@PPGOrientador\imprimircoorientadorRotulo: \titulacaocoorientador{} \nohyphens{\imprimircoorientador}}%
+              }%
+            \end{SingleSpace}
+          \end{minipage}%
+        }%
+      }}%
+    % (3) local/ano no rodape (~2 cm da borda inferior)
+    \put(\LenToUnit{3cm},\LenToUnit{\dimexpr -\paperheight+2cm\relax}){%
+      \parbox[b]{\textwidth}{\centering
+        {\@PPGLocalData \imprimirlocal\\ \@year\par}}}%
+  }}%
+  \null% garante que a pagina da folha de rosto seja composta
 } %folha de rosto
 
 
