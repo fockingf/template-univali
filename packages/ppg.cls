@@ -1478,42 +1478,42 @@
 \setboolean{carimbo-folha-rosto}{true}
 \renewcommand{\folhaderostocontent}{%
   % POSICIONAMENTO ABSOLUTO (TikZ current page) — ver \imprimircapa. Apendice B:
-  % autor no TOPO (a 3 cm), titulo no CENTRO com a nota de natureza logo abaixo
-  % (alinhada do meio da mancha a direita), local/ano no RODAPE (~2 cm).
+  % autor no TOPO (a 3 cm), local/ano no RODAPE (~2 cm); titulo e nota de natureza
+  % IGUALMENTE DISTRIBUIDOS entre o autor e o local (titulo a 1/3, nota a 2/3 ->
+  % tres intervalos iguais), como na capa. Nota alinhada do meio da mancha a direita.
   \begin{tikzpicture}[remember picture, overlay]
-    % (1) autor no topo: topo do texto a 3 cm da borda (\topskip=0 local ao no
-    % zera o espaco que o vbox reserva acima do texto — ver \imprimircapa)
-    \node[anchor=north west, inner sep=0pt, text width=\textwidth, align=center]
+    % (1) autor no TOPO, a 3 cm (no `aut`). \topskip=0 local ao no zera o espaco
+    % que o vbox reserva acima do texto (ver \imprimircapa).
+    \node[anchor=north west, inner sep=0pt, text width=\textwidth, align=center] (aut)
       at ([xshift=3cm, yshift=-3cm]current page.north west) {%
         \setlength{\topskip}{0pt}\SingleSpacing
         {\@ppgAutorFolhaRosto \nohyphens{\MakeUppercase{\imprimirautor}}\par}};
-    % (2) titulo no centro vertical + nota de natureza logo abaixo (a direita)
-    \node[anchor=west, inner sep=0pt, text width=\textwidth, align=left]
-      at ([xshift=3cm, yshift=-0.5\paperheight]current page.north west) {%
-        {\centering\begin{Spacing}{1.5}{\@PPGTituloFolhaRosto\nohyphens{\@ppgFmtTitulo}\par}\end{Spacing}\par}%
-        \abntex@ifnotempty{\imprimirpreambulo}{%
-          \vspace{1.5cm}\par\noindent
-          \hspace*{.43\textwidth}%
-          \begin{minipage}{8.4cm}
-            \begin{SingleSpace}
-              {\@PPGPreambulo\imprimirpreambulo}%
-
-              \vspace{5pt}
-              {\@PPGPreambulo\arealabel: \nohyphens{\imprimirarea}}%
-
-              \vspace{5pt}
-              {\@PPGOrientador\imprimirorientadorRotulo: \titulacaoorientador{} \nohyphens{\imprimirorientador}}%
-              \abntex@ifnotempty{\imprimircoorientador}{%
-                  \\{\@PPGOrientador\imprimircoorientadorRotulo: \titulacaocoorientador{} \nohyphens{\imprimircoorientador}}%
-              }%
-            \end{SingleSpace}
-          \end{minipage}%
-        }%
-      };
-    % (3) local/ano no rodape (~2 cm da borda inferior)
-    \node[anchor=south west, inner sep=0pt, text width=\textwidth, align=center]
+    % (4) local/ano no RODAPE, ~2 cm da borda (no `local`).
+    \node[anchor=south west, inner sep=0pt, text width=\textwidth, align=center] (local)
       at ([xshift=3cm, yshift=2cm]current page.south west) {%
         {\@PPGLocalData \imprimirlocal\\ \@year\par}};
+    % (2) titulo a 1/3 entre o autor (aut.south) e o local (local.north)
+    \node[text width=\textwidth, align=center] at ($(aut.south)!1/3!(local.north)$) {%
+        \begin{Spacing}{1.5}{\@PPGTituloFolhaRosto\nohyphens{\@ppgFmtTitulo}\par}\end{Spacing}};
+    % (3) nota de natureza a 2/3 (do meio da mancha a direita)
+    \abntex@ifnotempty{\imprimirpreambulo}{%
+      \node[text width=\textwidth] at ($(aut.south)!2/3!(local.north)$) {%
+        \noindent\hspace*{.43\textwidth}%
+        \begin{minipage}{8.4cm}
+          \begin{SingleSpace}
+            {\@PPGPreambulo\imprimirpreambulo}%
+
+            \vspace{5pt}
+            {\@PPGPreambulo\arealabel: \nohyphens{\imprimirarea}}%
+
+            \vspace{5pt}
+            {\@PPGOrientador\imprimirorientadorRotulo: \titulacaoorientador{} \nohyphens{\imprimirorientador}}%
+            \abntex@ifnotempty{\imprimircoorientador}{%
+                \\{\@PPGOrientador\imprimircoorientadorRotulo: \titulacaocoorientador{} \nohyphens{\imprimircoorientador}}%
+            }%
+          \end{SingleSpace}
+        \end{minipage}};
+    }%
   \end{tikzpicture}%
   \null% garante que a pagina da folha de rosto seja composta
 } %folha de rosto
