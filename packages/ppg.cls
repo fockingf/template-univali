@@ -1443,16 +1443,24 @@
     % Modelo do Apendice A do guia UNIVALI 2025 (e NBR 14724:2024): nome da
     % instituicao (maiusculas), autor, titulo:subtitulo no centro, local e
     % ano. Fonte 12, sem logo e sem nota de natureza (esta vai na f. de rosto).
-    \vspace*{1.0cm}
-
+    % NBR 14724 / Apendice A: 3 cm da borda superior ao topo do texto. A area de
+    % texto da titlingpage comeca ~2,5 cm da borda (acima da margem de 3 cm do
+    % corpo). \topskip=0 faz o topo da 1a caixa independer da fonte, e o \vspace*
+    % calibrado poe o topo da 1a linha sobre a linha de 3 cm (medido: 3,02 cm).
+    % IMPORTANTE: \topskip=0 e local (\begingroup) e restaurado logo apos a 1a
+    % linha; se ficasse ativo ate o \cleardoublepage da capa, geraria uma pagina
+    % em branco extra antes da folha de rosto.
     % --- identificacao no TOPO: instituicao + autor agrupados (Apendice A do
     % guia UNIVALI 2025): "identificacao centrada em letras maiusculas". Os dois
     % ficam juntos no topo, separados por um espaco fixo (sem \vfill entre eles).
     % Quebra do nome do programa apos "EM" a pedido (nome fixo para permitir
     % a quebra manual; sigla via \imprimirsiglaprograma).
-    \begin{SingleSpace}
-      {\@ppgPrograma\bfseries \imprimircapainstituicao\par}
-    \end{SingleSpace}
+    \begingroup
+      \setlength{\topskip}{0pt}\vspace*{11pt}%
+      \begin{SingleSpace}
+        {\@ppgPrograma\bfseries \imprimircapainstituicao\par}
+      \end{SingleSpace}%
+    \endgroup
 
     \vspace{2cm}
 
@@ -1490,10 +1498,12 @@
     % topo, titulo:subtitulo no centro, nota de natureza (preambulo) com a
     % instituicao e a area, orientador, local e ano. Sem logo, sem instituicao
     % no topo e sem "por" (a instituicao consta na nota de natureza).
-    \vspace*{1.0cm}
-
-    % --- autor (topo, maiusculas) ---
-    {\@ppgAutorFolhaRosto \nohyphens{\MakeUppercase{\imprimirautor}}\par}
+    % --- autor (topo, maiusculas) --- topo a 3 cm (mesma tecnica da capa:
+    % \topskip=0 local + \vspace* calibrado; restaurado logo apos a 1a linha).
+    \begingroup
+      \setlength{\topskip}{0pt}\vspace*{14pt}%
+      {\@ppgAutorFolhaRosto \nohyphens{\MakeUppercase{\imprimirautor}}\par}%
+    \endgroup
 
     \vfill
 
