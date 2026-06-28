@@ -1437,35 +1437,35 @@
   \endgroup
 }
 
-% Posicionamento absoluto da capa/folha de rosto (independe do motor TeX).
-\RequirePackage{eso-pic}
-% Comprimento auxiliar p/ medir a ascendente da 1a linha da capa.
-\newlength{\ppgcaph}
+% Posicionamento ABSOLUTO da capa/folha de rosto ancorado ao no `current page`
+% do TikZ (remember picture/overlay) — a referencia mais robusta e portavel para
+% posicao de pagina: ancora na geometria real do PDF, identica em qualquer motor
+% (MiKTeX, TeX Live/Overleaf) e independente da titlingpage/topskip. Requer 2
+% passadas de compilacao (o latexmk/Overleaf fazem isso automaticamente).
+\RequirePackage{tikz}
 \renewcommand{\imprimircapa}{%
   \begin{capa}%
-    % POSICIONAMENTO ABSOLUTO a partir da borda do papel (eso-pic) — independe do
-    % motor TeX (MiKTeX/TeX Live/Overleaf), da titlingpage e do \topskip, que
-    % posicionam o texto de forma diferente entre ambientes. Tres zonas do
-    % Apendice A do guia UNIVALI: (1) instituicao+autor no TOPO, com o topo do
-    % texto a 3 cm da borda superior; (2) titulo no CENTRO vertical da folha;
-    % (3) local/ano no RODAPE, a ~2 cm da borda inferior. Margem esquerda 3 cm.
-    \settoheight{\ppgcaph}{\@ppgPrograma\bfseries \'A}% ascendente (cap+acento) da 1a linha
-    \AddToShipoutPictureFG*{\AtPageUpperLeft{%
-      % (1) topo: baseline = 3 cm + ascendente  =>  TOPO do texto exatamente a 3 cm
-      \put(\LenToUnit{3cm},\LenToUnit{\dimexpr -3cm-\ppgcaph\relax}){%
-        \parbox[t]{\textwidth}{\centering
+    % Tres zonas do Apendice A do guia UNIVALI: (1) instituicao+autor no TOPO,
+    % com o topo do texto a 3 cm da borda superior; (2) titulo no CENTRO vertical
+    % da folha; (3) local/ano no RODAPE, a ~2 cm da borda inferior. Margem
+    % esquerda 3 cm, largura = \textwidth. `inner sep=0pt` faz o topo do no
+    % coincidir com o topo do texto (sem precisar medir a ascendente).
+    \begin{tikzpicture}[remember picture, overlay]
+      % (1) instituicao + autor: TOPO do texto exatamente a 3 cm da borda
+      \node[anchor=north west, inner sep=0pt, text width=\textwidth, align=center]
+        at ([xshift=3cm, yshift=-3cm]current page.north west) {%
           \begin{SingleSpace}{\@ppgPrograma\bfseries \imprimircapainstituicao\par}\end{SingleSpace}%
           \vspace{2cm}\par
-          {\@ppgAutorCapa\bfseries \nohyphens{\MakeUppercase{\imprimirautor}}\par}}}%
-      % (2) centro vertical da folha
-      \put(\LenToUnit{3cm},\LenToUnit{\dimexpr -0.5\paperheight\relax}){%
-        \parbox[c]{\textwidth}{\centering
-          \begin{Spacing}{1.5}{\@ppgTituloFolhaRosto \nohyphens{\@ppgFmtTitulo}\par}\end{Spacing}}}%
-      % (3) rodape: ultima linha (Ano) a ~2 cm da borda inferior
-      \put(\LenToUnit{3cm},\LenToUnit{\dimexpr -\paperheight+2cm\relax}){%
-        \parbox[b]{\textwidth}{\centering
-          \begin{SingleSpace}{\@ppgLocalData \imprimirlocal\\[3pt] \@year\par}\end{SingleSpace}}}%
-    }}%
+          {\@ppgAutorCapa\bfseries \nohyphens{\MakeUppercase{\imprimirautor}}\par}};
+      % (2) titulo no centro vertical da folha
+      \node[anchor=west, inner sep=0pt, text width=\textwidth, align=center]
+        at ([xshift=3cm, yshift=-0.5\paperheight]current page.north west) {%
+          \begin{Spacing}{1.5}{\@ppgTituloFolhaRosto \nohyphens{\@ppgFmtTitulo}\par}\end{Spacing}};
+      % (3) local/ano: ultima linha (Ano) a ~2 cm da borda inferior
+      \node[anchor=south west, inner sep=0pt, text width=\textwidth, align=center]
+        at ([xshift=3cm, yshift=2cm]current page.south west) {%
+          \begin{SingleSpace}{\@ppgLocalData \imprimirlocal\\[3pt] \@year\par}\end{SingleSpace}};
+    \end{tikzpicture}%
     \null% garante que a pagina da capa seja composta
   \end{capa}%
 }
@@ -1474,20 +1474,17 @@
 \newboolean{carimbo-folha-rosto}
 \setboolean{carimbo-folha-rosto}{true}
 \renewcommand{\folhaderostocontent}{%
-  % POSICIONAMENTO ABSOLUTO a partir da borda do papel (eso-pic) — independe do
-  % motor TeX/titlingpage, como em \imprimircapa. Modelo do Apendice B do guia
-  % UNIVALI 2025 (NBR 14724:2024): autor no TOPO (a 3 cm), titulo no CENTRO da
-  % folha com a nota de natureza (preambulo + area + orientador) logo abaixo,
-  % alinhada do meio da mancha a direita; local/ano no RODAPE (~2 cm).
-  \settoheight{\ppgcaph}{\@ppgAutorFolhaRosto \'A}% ascendente da 1a linha (autor)
-  \AddToShipoutPictureFG*{\AtPageUpperLeft{%
-    % (1) autor no topo: topo do texto a 3 cm da borda superior
-    \put(\LenToUnit{3cm},\LenToUnit{\dimexpr -3cm-\ppgcaph\relax}){%
-      \parbox[t]{\textwidth}{\centering
-        {\@ppgAutorFolhaRosto \nohyphens{\MakeUppercase{\imprimirautor}}\par}}}%
-    % (2) titulo no centro vertical da folha + nota de natureza logo abaixo
-    \put(\LenToUnit{3cm},\LenToUnit{\dimexpr -0.5\paperheight\relax}){%
-      \parbox[t]{\textwidth}{%
+  % POSICIONAMENTO ABSOLUTO (TikZ current page) — ver \imprimircapa. Apendice B:
+  % autor no TOPO (a 3 cm), titulo no CENTRO com a nota de natureza logo abaixo
+  % (alinhada do meio da mancha a direita), local/ano no RODAPE (~2 cm).
+  \begin{tikzpicture}[remember picture, overlay]
+    % (1) autor no topo: topo do texto a 3 cm da borda
+    \node[anchor=north west, inner sep=0pt, text width=\textwidth, align=center]
+      at ([xshift=3cm, yshift=-3cm]current page.north west) {%
+        {\@ppgAutorFolhaRosto \nohyphens{\MakeUppercase{\imprimirautor}}\par}};
+    % (2) titulo no centro vertical + nota de natureza logo abaixo (a direita)
+    \node[anchor=west, inner sep=0pt, text width=\textwidth, align=left]
+      at ([xshift=3cm, yshift=-0.5\paperheight]current page.north west) {%
         {\centering\begin{Spacing}{1.5}{\@PPGTituloFolhaRosto\nohyphens{\@ppgFmtTitulo}\par}\end{Spacing}\par}%
         \abntex@ifnotempty{\imprimirpreambulo}{%
           \vspace{1.5cm}\par\noindent
@@ -1507,12 +1504,12 @@
             \end{SingleSpace}
           \end{minipage}%
         }%
-      }}%
+      };
     % (3) local/ano no rodape (~2 cm da borda inferior)
-    \put(\LenToUnit{3cm},\LenToUnit{\dimexpr -\paperheight+2cm\relax}){%
-      \parbox[b]{\textwidth}{\centering
-        {\@PPGLocalData \imprimirlocal\\ \@year\par}}}%
-  }}%
+    \node[anchor=south west, inner sep=0pt, text width=\textwidth, align=center]
+      at ([xshift=3cm, yshift=2cm]current page.south west) {%
+        {\@PPGLocalData \imprimirlocal\\ \@year\par}};
+  \end{tikzpicture}%
   \null% garante que a pagina da folha de rosto seja composta
 } %folha de rosto
 
