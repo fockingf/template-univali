@@ -19,11 +19,9 @@ O \autoref{quad:materiais} lista os materiais utilizados.
 
 % --- EXEMPLO DE QUADRO (tabela com bordas; legenda acima) ------------
 \begin{quadro}[!htb]
-  \caption{Materiais e instrumentos utilizados.}
-  \label{quad:materiais}
   \centering
-  % A fonte fica alinhada à margem esquerda DO QUADRO (não do texto).
-  \elementocomfonte{%
+  % Título e fonte alinhados à margem esquerda DO QUADRO (não do texto), NBR 14724 5.8.
+  \elementocomfonte[\caption{Materiais e instrumentos utilizados.}\label{quad:materiais}]{%
   \begin{tabular}{|l|l|c|}
     \hline
     \textbf{Item} & \textbf{Descrição} & \textbf{Quantidade} \\
@@ -43,11 +41,9 @@ A \autoref{tab:dados} apresenta os mesmos dados no estilo \textit{booktabs}
 
 % --- EXEMPLO DE TABELA (estilo booktabs) -----------------------------
 \begin{table}[!htb]
-  \caption{Exemplo de tabela numérica.}
-  \label{tab:dados}
   \centering
-  % A fonte fica alinhada à margem esquerda DA TABELA (não do texto).
-  \elementocomfonte{%
+  % Título e fonte alinhados à margem esquerda DA TABELA (não do texto), NBR 14724 5.9.
+  \elementocomfonte[\caption{Exemplo de tabela numérica.}\label{tab:dados}]{%
   \begin{tabular}{lrr}
     \toprule
     \textbf{Categoria} & \textbf{Valor} & \textbf{\%} \\
